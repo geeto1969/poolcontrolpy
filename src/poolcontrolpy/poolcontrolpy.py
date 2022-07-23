@@ -7,6 +7,7 @@ from .exceptions import HostError, ResourceError, ResourceTypeError
 
 _LOGGER = logging.getLogger(__name__)
 
+
 class Controller:
     def __init__(self, session, host, port) -> None:
         self._rh = _RequestsHandler(session, host, port)
@@ -15,6 +16,7 @@ class Controller:
         data = await self._rh.get(resource)
         print(data)
         return data
+
 
 class _RequestsHandler:
     def __init__(self, session: aiohttp.ClientSession, host: str, port):
@@ -47,7 +49,7 @@ class _RequestsHandler:
         ResourceError
             Error raised when Resource return status code >= 400
         """
-        data=[]
+        data = []
         url = f"{self.scheme}://{self.host}:{self.port}{resource}"
 
         try:
@@ -65,11 +67,11 @@ class _RequestsHandler:
                     _LOGGER.debug(json.dumps(data))
                     return data
         except aiohttp.ClientConnectorError as error:
-            _LOGGER.warning("Connection to PoolController failed: %s://%s:%s",
+            _LOGGER.warning(
+                "Connection to PoolController failed: %s://%s:%s",
                 self.scheme,
                 self.host,
-                self.port
-            )
+                self.port)
             _LOGGER.debug(repr(error))
             raise HostError(error.host, error.port) from error
         except aiohttp.ClientResponseError as error:
@@ -77,8 +79,8 @@ class _RequestsHandler:
             _LOGGER.debug(repr(error))
             raise ResourceError(error.status, error.request_info.url) from error
         else:
-            _LOGGER.debug("Connected to PoolController: %s://%s:%s",
+            _LOGGER.debug(
+                "Connected to PoolController: %s://%s:%s",
                 self.scheme,
                 self.host,
-                self.port
-            )
+                self.port)

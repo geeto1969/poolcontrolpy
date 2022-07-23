@@ -1,25 +1,28 @@
 import aiohttp
 
-import pytest
-
 from poolcontrolpy import poolcontrolpy
-from poolcontrolpy.exceptions import *
+from poolcontrolpy.exceptions import HostError, ResourceError, ResourceTypeError
 
 routes = aiohttp.web.RouteTableDef()
+
 
 @routes.get('/')
 async def base(request):
     return aiohttp.web.Response(status=404)
 
+
 @routes.get('/config/circuit/1')
 async def circuit1(request):
-    data = '{"id":1,"freeze":true,"type":1,"isActive":true,"eggTimer":60,"showInFeatures":false,"name":"Spa","nameId":72,"dontStop":false,"master":0}'
+    data = '{"id":1,"freeze":true,"type":1,"isActive":true,"eggTimer":60,' \
+        '"showInFeatures":false,"name":"Spa","nameId":72,"dontStop":false,"master":0}'
     return aiohttp.web.Response(body=data, content_type="application/json")
+
 
 @routes.get('/config/circuit/2')
 async def circuit2(request):
     data = 'Hello, world!'
     return aiohttp.web.Response(body=data, content_type="text/html")
+
 
 async def test_host_connected(aiohttp_server):
     """Test successful connection to host
@@ -38,6 +41,7 @@ async def test_host_connected(aiohttp_server):
             assert False, 'Raised unexpected Exception'
         else:
             assert True
+
 
 async def test_host_rejection(aiohttp_server):
     """Test exception handling of scenario where host does not respond or refuses connection
@@ -59,6 +63,7 @@ async def test_host_rejection(aiohttp_server):
         else:
             assert False, 'Bad Test: Connection not rejected'
 
+
 async def test_resource_missing(aiohttp_server):
     """Test exception handling of scenario where the target resource is missing
     """
@@ -79,6 +84,7 @@ async def test_resource_missing(aiohttp_server):
             assert False, 'Raised unexpected Exception'
         else:
             assert False, 'Failed to raise any Exception'
+
 
 async def test_resource_bad_type(aiohttp_server):
     """Test exception handling of scenario where the target resource is wrong type
