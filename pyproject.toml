@@ -18,6 +18,7 @@ myst-nb = "^0.16.0"
 sphinx-autoapi = "^1.8.4"
 sphinx-rtd-theme = "^1.0.0"
 pytest-aiohttp = "^1.0.4"
+pylama = "^8.3.8"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
