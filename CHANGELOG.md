@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.2 (2022-07-24)
+### Documentation
+* Update notebook examples to fix notebook issue ([`7aef112`](https://github.com/geeto1969/poolcontrolpy/commit/7aef112e52362454413579d380a0de02d6555aca))
+
 ## v0.1.1 (2022-07-24)
 ### Documentation
 * Add example to notebook ([`cf3f698`](https://github.com/geeto1969/poolcontrolpy/commit/cf3f698a5434c620dc8e641216f50b5c8cff95e0))
