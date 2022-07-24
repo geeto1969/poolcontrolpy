@@ -2,6 +2,11 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.1 (2022-07-24)
+### Documentation
+* Add example to notebook ([`cf3f698`](https://github.com/geeto1969/poolcontrolpy/commit/cf3f698a5434c620dc8e641216f50b5c8cff95e0))
+* Add basic example to README ([`eb4b9c2`](https://github.com/geeto1969/poolcontrolpy/commit/eb4b9c2137da46d2735146e0d7750f91b6c713fe))
+
 ## v0.1.0 (2022-07-23)
 ### Feature
 * Add CI/CD workflow ([`d193abd`](https://github.com/geeto1969/poolcontrolpy/commit/d193abda97a78b45b2f02178778c76637c6e6f41))
