@@ -1,6 +1,6 @@
 # poolcontrolpy
 
-Package for accessing nodejs-poolController
+Package for accessing nodejs-poolController for use with a planned Home Assistant integration.
 
 ## Installation
 
@@ -10,7 +10,22 @@ $ pip install poolcontrolpy
 
 ## Usage
 
-- TODO
+```python
+import asyncio
+import aiohttp
+
+from poolcontrolpy.poolcontrolpy import Controller
+
+
+async def main():
+
+    async with aiohttp.ClientSession() as client:
+        controller = Controller(client, "10.0.20.13", 4200)
+        return await controller._rh.get("/config")
+
+config = asyncio.run(main())
+print(config['circuits'][1])
+```
 
 ## Contributing
 
