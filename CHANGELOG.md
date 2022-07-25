@@ -2,6 +2,9 @@
 
 <!--next-version-placeholder-->
 
+## v0.1.4 (2022-07-25)
+
+
 ## v0.1.3 (2022-07-24)
 ### Documentation
 * Updated Read the Docs config ([#2](https://github.com/geeto1969/poolcontrolpy/issues/2)) ([`694cb77`](https://github.com/geeto1969/poolcontrolpy/commit/694cb77a0080369ede8a2528c981a3aa0cd2cf80))
