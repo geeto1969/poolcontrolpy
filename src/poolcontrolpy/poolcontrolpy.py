@@ -10,7 +10,7 @@ _LOGGER = logging.getLogger(__name__)
 RES_CONF = "/config"
 
 class Controller:
-    """Controller class representing on nodejs-poolController
+    """Controller class representing one nodejs-poolController
     """
     def __init__(self, session: aiohttp.ClientSession, host: str, port: int) -> None:
         """Initialize with connection parameters
@@ -44,6 +44,8 @@ class Controller:
 
 
 class _RequestsHandler:
+    """Handler class to manage http requests to the controller
+    """
     def __init__(self, session: aiohttp.ClientSession, host: str, port):
         self.headers = {"Accept": "application/json"}
         self.scheme = "http"
@@ -52,7 +54,7 @@ class _RequestsHandler:
         self.host = host
         self.port = port
 
-    async def get(self, resource: str):
+    async def get(self, resource: str) -> str:
         """Method to get resource from Pool Controller API
 
         Parameters
@@ -62,8 +64,8 @@ class _RequestsHandler:
 
         Returns
         -------
-        JSON Object
-            Object representing resource
+        str
+            String representing resource body
 
         Raises
         ------
