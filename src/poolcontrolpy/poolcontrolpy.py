@@ -7,45 +7,18 @@ from .exceptions import HostError, ResourceError, ResourceTypeError
 
 _LOGGER = logging.getLogger(__name__)
 
-RES_CONF = "/config"
 
 class Controller:
-    """Controller class representing one nodejs-poolController
-    """
-    def __init__(self, session: aiohttp.ClientSession, host: str, port: int) -> None:
-        """Initialize with connection parameters
-
-        Parameters
-        ----------
-        session : aiohttp.ClientSession
-            'aiohttp.ClientSession' to use for connection to controller
-        host : str
-            Hostname or IP address to controller
-        port : int
-            Port number to controller. Typically 4200
-        """
-        self.session = session
+    def __init__(self, session, host, port) -> None:
         self._rh = _RequestsHandler(session, host, port)
 
-    async def checkconnect(self) -> bool:
-        """Check successful connection by inspecting returned controller version
-
-        Returns
-        -------
-        bool
-            True for successful connection
-        """
-        try:
-            data = await self._rh.get(RES_CONF)
-        except HostError:
-            return False
-
-        return bool(not data['appVersion'] == "")
+    async def fetch(self, resource: str):
+        data = await self._rh.get(resource)
+        print(data)
+        return data
 
 
 class _RequestsHandler:
-    """Handler class to manage http requests to the controller
-    """
     def __init__(self, session: aiohttp.ClientSession, host: str, port):
         self.headers = {"Accept": "application/json"}
         self.scheme = "http"
@@ -54,7 +27,7 @@ class _RequestsHandler:
         self.host = host
         self.port = port
 
-    async def get(self, resource: str) -> str:
+    async def get(self, resource: str):
         """Method to get resource from Pool Controller API
 
         Parameters
@@ -64,8 +37,8 @@ class _RequestsHandler:
 
         Returns
         -------
-        str
-            String representing resource body
+        JSON Object
+            Object representing resource
 
         Raises
         ------
