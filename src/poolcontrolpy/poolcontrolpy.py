@@ -7,15 +7,40 @@ from .exceptions import HostError, ResourceError, ResourceTypeError
 
 _LOGGER = logging.getLogger(__name__)
 
+RES_CONF = "/config"
 
 class Controller:
-    def __init__(self, session, host, port) -> None:
+    """Controller class representing on nodejs-poolController
+    """
+    def __init__(self, session: aiohttp.ClientSession, host: str, port: int) -> None:
+        """Initialize with connection parameters
+
+        Parameters
+        ----------
+        session : aiohttp.ClientSession
+            'aiohttp.ClientSession' to use for connection to controller
+        host : str
+            Hostname or IP address to controller
+        port : int
+            Port number to controller. Typically 4200
+        """
+        self.session = session
         self._rh = _RequestsHandler(session, host, port)
 
-    async def fetch(self, resource: str):
-        data = await self._rh.get(resource)
-        print(data)
-        return data
+    async def checkconnect(self) -> bool:
+        """Check successful connection by inspecting returned controller version
+
+        Returns
+        -------
+        bool
+            True for successful connection
+        """
+        try:
+            data = await self._rh.get(RES_CONF)
+        except HostError:
+            return False
+
+        return bool(not data['appVersion'] == "")
 
 
 class _RequestsHandler:
