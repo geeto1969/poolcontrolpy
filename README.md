@@ -10,7 +10,7 @@ $ pip install poolcontrolpy
 
 ## Usage
 
-Configure pool controller and confirm successful connection.
+This example uses 'asyncio.run' so it cannot be called when another asyncio event loop is running in the same thread.
 
 ```python
 import asyncio
@@ -19,17 +19,15 @@ import aiohttp
 from poolcontrolpy.poolcontrolpy import Controller
 
 
-async def checkconnection():
+async def get():
 
     async with aiohttp.ClientSession() as client:
         controller = Controller(client, "10.0.20.13", 4200)
-        return await controller.checkconnect()
+        return await controller._rh.get("/config")
 
-resp = asyncio.run(checkconnection())
-print(resp)
+config = asyncio.run(get())
+print(config['circuits'][1])
 ```
-
-*Note: This example uses 'asyncio.run' so it cannot be called when another asyncio event loop is running in the same thread.*
 
 ## Contributing
 
