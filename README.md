@@ -29,7 +29,7 @@ resp = asyncio.run(checkconnection())
 print(resp)
 ```
 
-Note: This example uses 'asyncio.run' so it cannot be called when another asyncio event loop is running in the same thread.
+*Note: This example uses 'asyncio.run' so it cannot be called when another asyncio event loop is running in the same thread.*
 
 ## Contributing
 
