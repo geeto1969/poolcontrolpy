@@ -2,6 +2,10 @@
 
 <!--next-version-placeholder-->
 
+## v0.2.0 (2022-08-01)
+### Feature
+* Add config fetching ([`c3145eb`](https://github.com/geeto1969/poolcontrolpy/commit/c3145eb4d0bb1aa58b428143aba7bbb7fd18a58b))
+
 ## v0.1.7 (2022-07-26)
 
 
