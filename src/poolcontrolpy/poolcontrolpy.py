@@ -26,6 +26,25 @@ class Controller:
         """
         self.session = session
         self._rh = _RequestsHandler(session, host, port)
+        self._config: dict = {}
+        self._type: str
+        self._model: str
+        self._version: str
+
+    @property
+    def type(self):
+        """Controller type"""
+        return self._type
+
+    @property
+    def model(self):
+        """Controller model"""
+        return self._model
+
+    @property
+    def version(self):
+        """Controller software version"""
+        return self._version
 
     async def checkconnect(self) -> bool:
         """Check successful connection by inspecting returned controller version
@@ -41,6 +60,25 @@ class Controller:
             return False
 
         return bool(not data['appVersion'] == "")
+
+    async def fetchconfig(self) -> bool:
+        """Fetch the current controller configuration
+
+        Returns
+        -------
+        bool
+            True for successful operation
+        """
+        try:
+            self._config = await self._rh.get(RES_CONF)
+        except HostError:
+            return {}
+        else:
+            self._type = self._config["controllerType"]
+            self._model = self._config["equipment"]["model"]
+            self._version = self._config["appVersion"]
+
+        return bool(not self._config['appVersion'] == "")
 
 
 class _RequestsHandler:
