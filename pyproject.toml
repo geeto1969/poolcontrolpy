@@ -19,13 +19,13 @@ sphinx-autoapi = "^1.8.4"
 sphinx-rtd-theme = "^1.0.0"
 pytest-aiohttp = "^1.0.4"
 pylama = "^8.3.8"
-python-semantic-release = "^7.29.6"
+python-semantic-release = "==7.28.1"
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
 
 [tool.semantic_release]
-version_variable = "pyproject.toml:version" # version location
+version_toml = "pyproject.toml:tool.poetry.version" # version location
 branch = "main"                             # branch to make releases of
 changelog_file = "CHANGELOG.md"             # changelog file
 build_command = "poetry build"              # build dists
