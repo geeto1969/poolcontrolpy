@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "poolcontrolpy"
-version = "0.2.9"
+version = "0.2.10"
 description = "Package for accessing nodejs-poolController"
 authors = ["Kevin Robinson"]
 license = "MIT"
